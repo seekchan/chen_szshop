@@ -1,0 +1,78 @@
+{extend name="public/base" /}
+{block name="title"}<title>ECSHOP 管理中心 - 商品首页 </title>{/block}
+{block name="nav"}
+<h1>
+    <span class="action-span"><a href="">添加新商品</a></span>
+    <span class="action-span1"><a href="">ECSHOP 管理中心</a></span>
+    <span id="search_id" class="action-span1"> - 商品列表 </span>
+    <div style="clear:both"></div>
+</h1>
+{/block}
+{block name="body"}
+<div class="form-div">
+    <form action="" name="searchForm">
+        <img src="__ADMIN__/Images/icon_search.gif" width="26" height="22" border="0" alt="search" />
+        <!-- 关键字 -->
+        关键字 <input type="text" name="keyword" size="15" />
+        <input type="submit" value=" 搜索 " class="button" />
+    </form>
+</div>
+
+<!-- 商品列表 -->
+
+    <div class="list-div" id="listDiv">
+        <table cellpadding="3" cellspacing="1">
+            <tr>
+                <th>编号</th>
+                <th>订单号</th>
+                <th>收货人</th>
+                <th>金额</th>
+                <th>支付方式</th>
+                <th>支付状态</th>
+                <th>操作</th>
+            </tr>
+            {volist name="order" id="vo"}
+            <tr>
+                <td align="center">{$vo.id}</td>
+                <td align="center" class="first-cell"><span>{$vo.order_id}</span></td>
+                <td align="center" class="first-cell"><span>{$vo.consignee}</span></td>
+                <td align="center"><span>{$vo.money}</span></td>
+                {if condition="$vo.pay eq 1"}
+                <td align="center"><span>支付宝</span></td>
+                {elseif condition="$vo.pay eq 2" /}
+                <td align="center"><span>微信</span></td>
+                {else condition="$vo.pay eq 3" /}
+                <td align="center"><span>银行卡</span></td>
+                {/if}
+                {if condition="$vo.status eq 0"}
+                <td align="center"><span>已下单</span></td>
+                {elseif condition="$vo.status eq 1" /}
+                <td align="center"><span>已支付</span></td>
+                {else condition="$vo.status eq 2" /}
+                <td align="center"><span>已发货</span></td>
+                {/if}
+                {eq name="$vo.status" value="1"}
+                <td align="center">
+                <a href="{:url('send','id='.$vo.id)}" title="发货"><img src="__ADMIN__/Images/icon_edit.gif" width="16" height="16" border="0" /></a>
+               </td>
+               {/eq}
+            </tr>
+            {/volist}
+        </table>
+        <style>
+            .pagination li{float: left;list-style-type: none;margin:0 10px;}
+        </style>
+        <!-- 分页开始 -->
+        <table id="page-table" cellspacing="0">
+            <tr>
+                <td width="80%">&nbsp;</td>
+                <td align="center" nowrap="true">
+                    {$order -> render()}
+                </td>
+            </tr>
+        </table>
+    <!-- 分页结束 -->
+    </div>
+{/block}
+    
+{/block}

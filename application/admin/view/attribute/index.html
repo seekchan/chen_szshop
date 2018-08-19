@@ -1,0 +1,54 @@
+{extend name="public/base" /}
+{block name="nav"}
+<h1>
+    <span class="action-span"><a href="">添加新商品</a></span>
+    <span class="action-span1"><a href="">ECSHOP 管理中心</a></span>
+    <span id="search_id" class="action-span1"> - 商品列表 </span>
+    <div style="clear:both"></div>
+</h1>
+{/block}
+{block name="body"}
+
+<!-- 商品列表 -->
+
+    <div class="list-div" id="listDiv">
+        <table cellpadding="3" cellspacing="1">
+            <tr>
+                <th>编号</th>
+                <th>属性名称</th>
+                <th>所属属性</th>
+                <th>属性类型</th>
+                <th>属性值录入方式</th>
+                <th>属性默认值</th>
+                <th>操作</th>
+
+            </tr>
+            {volist name="attr" id="vo"}
+            <tr>
+                <td align="center">{$vo.id}</td>
+                <td align="center" class="first-cell"><span>{$vo.attr_name}</span></td>
+                <td align="center" class="first-cell"><span>{$vo.type_name}</span></td>
+                <td align="center" ><span>{eq name="$vo.attr_type" value="1"}唯一{else /}单选{/eq}</span></td>
+                <td align="center"><span onclick="">{eq name="$vo.attr_input_type" value="1"}文本框{else /}列表选择{/eq}</span></td>
+                <td align="center"><span>{$vo.attr_values}</span></td>
+                <td align="center">
+                <a href="{:url('edit','id='.$vo.id)}" title="编辑"><img src="__ADMIN__/Images/icon_edit.gif" width="16" height="16" border="0" /></a>
+                <a href="{:url('del','id='.$vo.id)}" onclick="" title="回收站"><img src="__ADMIN__/Images/icon_trash.gif" width="16" height="16" border="0" /></a></td>
+            </tr>
+            {/volist}
+        </table>
+        <style>
+            .pagination li{float: left;list-style-type: none;margin:0 10px;}
+        </style>
+        <!-- 分页开始 -->
+        <table id="page-table" cellspacing="0">
+            <tr>
+                <td width="80%">&nbsp;</td>
+                <td align="center" nowrap="true">
+                </td>
+            </tr>
+        </table>
+    <!-- 分页结束 -->
+    </div>
+{/block}
+

@@ -1,0 +1,51 @@
+{extend name="public/base" /}
+{block name="nav"}
+<h1>
+    <span class="action-span"><a href="#">商品分类</a></span>
+    <span class="action-span1"><a href="#">ECSHOP 管理中心</a></span>
+    <span id="search_id" class="action-span1"> - 添加分类 </span>
+    <div style="clear:both"></div>
+</h1>
+{/block}
+{block name="body"}
+<div class="main-div">
+    <form action="" method="post" name="theForm" enctype="multipart/form-data">
+        <table width="100%" id="general-table">
+            <tr >
+                {volist name="$goods_name" id="vo"}
+                <td class="label" >{$vo}</td>
+                {/volist}
+            </tr>
+
+            {volist name="$list" id="vo"}
+            <tr>
+                <dl>
+                    <dt>{$vo.0.attr_name}</dt>
+                    <dd>
+                    {volist name="vo" id="v" key="keys"}
+                        {$v.attr_value}<input type="radio" name="attr[{$v.attr_id}]" value="{$v.id}" {eq name="$keys" value="1"}checked="checked"{/eq} /></a>
+                    {/volist}
+                        <input type="hidden" name="" value="" />
+                    </dd>
+                </dl>
+            </tr>
+            {/volist}
+            <tr>
+                <td>
+                   价格 <input type="text" name="price"></input>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                   库存 <input type="text" name="sku_num"></input>
+                </td>
+            </tr>
+        </table>
+        <div class="button-div">
+            <input type="submit" value=" 确定 " />
+            <input type="reset" value=" 重置 " />
+        </div>
+    </form>
+</div>
+{/block}
+
